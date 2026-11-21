@@ -1,0 +1,83 @@
+:root{
+  --cream:#fbf6ee; --blush:#f4dcd8; --rose:#b9707a; --beige:#e8d9c5; --burgundy:#7a2a3a; --ink:#4a3236;
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --hand:'Caveat','Segoe Print',cursive;
+  --shadow:0 12px 34px rgba(122,42,58,.14);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:var(--sans);font-weight:300;color:var(--ink);background:radial-gradient(circle at 50% 20%,#fffaf3,var(--cream) 55%,#f3e4dc);overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px}
+
+/* floating background */
+#floaters{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.float{position:absolute;bottom:-30px;color:var(--rose);opacity:0;animation:rise linear forwards}
+@keyframes rise{10%{opacity:.5}90%{opacity:.35}100%{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+
+/* screens */
+.screen{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:max(1.2rem,env(safe-area-inset-top)) 1.2rem max(1.2rem,env(safe-area-inset-bottom));overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;text-align:center}
+.screen.active{opacity:1;visibility:visible}
+.screen>*{margin-top:0}
+.screen::before,.screen::after{content:"";margin:auto}
+h1,h2{font-family:var(--serif);font-weight:600;color:var(--burgundy);line-height:1.1}
+h1{font-size:clamp(2.3rem,9vw,3.6rem)}
+h2{font-size:clamp(1.8rem,7vw,2.6rem)}
+.small{font-size:.85rem;color:var(--rose);letter-spacing:.04em}
+.hint{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,5vw,1.7rem);color:var(--burgundy);max-width:20ch}
+
+.btn{background:var(--burgundy);color:var(--cream);padding:.9rem 1.8rem;border-radius:999px;font-weight:400;letter-spacing:.03em;box-shadow:var(--shadow);transition:transform .25s,background .25s}
+.btn:hover{background:#8d3447;transform:translateY(-2px)}
+
+/* envelope */
+.envelope{position:relative;width:min(78vw,320px);aspect-ratio:3/2;perspective:900px;border-radius:10px;filter:drop-shadow(var(--shadow))}
+.envelope .pocket,.envelope .paper,.envelope .flap{position:absolute;left:0;right:0}
+.envelope .pocket{bottom:0;height:100%;background:linear-gradient(160deg,#f0d3cf,#e5bfbb);border-radius:10px;clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);z-index:3}
+.envelope .paper{bottom:6%;height:86%;left:6%;right:6%;background:#fffdf8;border-radius:6px;z-index:2;transition:transform 1s .7s cubic-bezier(.3,.7,.2,1)}
+.envelope .flap{top:0;height:58%;background:linear-gradient(#e9c6c2,#ddb0ae);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;z-index:4;transition:transform .8s ease,z-index 0s .4s;border-radius:10px 10px 0 0}
+.envelope .seal{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:2.6rem;height:2.6rem;border-radius:50%;background:var(--burgundy);color:var(--cream);display:grid;place-items:center;z-index:5;transition:opacity .4s}
+.envelope.open .flap{transform:rotateX(180deg);z-index:1}
+.envelope.open .seal{opacity:0}
+.envelope.open .paper{transform:translateY(-55%)}
+.envelope:not(.open){animation:bob 3.5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+
+/* cards */
+.card{background:#fffdf8;border-radius:20px;box-shadow:var(--shadow);padding:2rem 1.5rem;width:min(92vw,520px);display:flex;flex-direction:column;align-items:center;gap:1.1rem;position:relative}
+.card::before{content:"";position:absolute;inset:8px;border:1px solid var(--beige);border-radius:14px;pointer-events:none}
+.message{display:flex;flex-direction:column;gap:.9rem;font-size:1.02rem;line-height:1.75;max-width:42ch}
+.message p{opacity:0;transform:translateY(8px);transition:opacity 1.2s,transform 1.2s}
+.message p.show{opacity:1;transform:none}
+.sign{font-family:var(--hand);font-size:1.8rem;color:var(--rose);opacity:0;transition:opacity 1.2s}
+.sign.show{opacity:1}
+.toast{font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--burgundy);max-width:26ch}
+
+/* scrapbook */
+.scrapbook{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;width:min(94vw,760px);padding:.5rem}
+@media(min-width:700px){.scrapbook{grid-template-columns:repeat(3,1fr)}}
+.polaroid{background:#fff;padding:.6rem .6rem 0;box-shadow:var(--shadow);transform:rotate(var(--r));transition:transform .4s,box-shadow .4s;text-align:center;border-radius:3px;opacity:0;animation:drop .8s forwards;animation-delay:var(--d)}
+.polaroid:hover{transform:rotate(0) scale(1.05);z-index:2}
+@keyframes drop{from{opacity:0;transform:translateY(20px) rotate(var(--r))}to{opacity:1;transform:rotate(var(--r))}}
+.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--blush)}
+.polaroid span{display:block;font-family:var(--hand);font-size:1.25rem;padding:.5rem 0 .6rem;color:var(--ink)}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;z-index:20;background:rgba(60,25,32,.88);display:flex;align-items:center;justify-content:center;gap:.5rem;padding:1rem}
+.lightbox[hidden]{display:none}
+.lightbox figure{background:#fff;padding:.8rem .8rem 0;border-radius:3px;max-width:min(82vw,560px);animation:pop .4s}
+@keyframes pop{from{opacity:0;transform:scale(.94)}}
+.lightbox img{max-width:100%;max-height:68vh;display:block;margin:auto}
+.lightbox figcaption{font-family:var(--hand);font-size:1.5rem;text-align:center;padding:.6rem}
+.lb-nav,.lb-close{color:#fff;font-size:2.4rem;padding:.3rem .6rem}
+.lb-close{position:absolute;top:.6rem;right:.8rem}
+
+/* music */
+.music{position:fixed;top:max(.8rem,env(safe-area-inset-top));right:.8rem;z-index:30;width:2.8rem;height:2.8rem;border-radius:50%;background:#fffdf8;color:var(--burgundy);box-shadow:var(--shadow);font-size:1.2rem}
+.music[hidden]{display:none}
+.music.paused{opacity:.6;text-decoration:line-through}
+
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+
+.polaroid{position:relative}
+.polaroid .play{position:absolute;top:.6rem;left:.6rem;right:.6rem;aspect-ratio:1;display:grid;place-items:center;font-style:normal;font-size:2.4rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.45);pointer-events:none}
+.lightbox video{max-width:100%;max-height:68vh;display:block;margin:auto;background:#000}
+.lightbox [hidden]{display:none}

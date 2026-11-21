@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Little Birthday Surprise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="floaters" aria-hidden="true"></div>
+<audio id="bgm" loop preload="none" playsinline></audio>
+<button id="musicBtn" class="music" aria-label="Pause music" hidden>♪</button>
+
+<!-- 1. ENVELOPE -->
+<section id="envelopeScreen" class="screen active">
+  <p class="hint">You've got a little surprise waiting for you ♡</p>
+  <button id="envelope" class="envelope" aria-label="Open your letter">
+    <span class="paper"></span>
+    <span class="pocket"></span>
+    <span class="flap"></span>
+    <span class="seal">♡</span>
+  </button>
+  <button id="openBtn" class="btn">Open your letter</button>
+</section>
+
+<!-- 2. LETTER -->
+<section id="letterScreen" class="screen">
+  <article class="card">
+    <p class="small" id="dearLine"></p>
+    <h1 id="greeting"></h1>
+    <div id="message" class="message"></div>
+    <p class="sign" id="signoff"></p>
+    <button class="btn" data-next="galleryScreen">See our memories</button>
+  </article>
+</section>
+
+<!-- 3. PHOTOS -->
+<section id="galleryScreen" class="screen">
+  <h2>Little Moments, Big Memories</h2>
+  <p class="small">Tap a photo to see it bigger</p>
+  <div id="scrapbook" class="scrapbook"></div>
+  <button class="btn" data-next="finalScreen">Continue</button>
+</section>
+
+<!-- 4. FINAL -->
+<section id="finalScreen" class="screen">
+  <article class="card">
+    <h2 id="finalTitle"></h2>
+    <p id="finalText" class="message"></p>
+    <p class="toast">Here's to more memories, more laughter, and more beautiful moments.</p>
+    <p class="toast">Most Important Wish : Gari thwba thuna heiba oiro 🛵🌠<br>Love You Always 🌸</p>
+    <button id="replayBtn" class="btn">Replay the surprise</button>
+  </article>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" hidden>
+  <button class="lb-close" aria-label="Close">×</button>
+  <button class="lb-nav prev" aria-label="Previous photo">‹</button>
+  <figure><img id="lbImg" alt=""><video id="lbVid" controls playsinline hidden></video><figcaption id="lbCap"></figcaption></figure>
+  <button class="lb-nav next" aria-label="Next photo">›</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
